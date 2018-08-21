@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+</head>
+<body>
+    <br>
+    <br>
+    <br>
+<button id="pay" type="button" onclick="myFunction1()">显示二维码页面</button>
+<br>
+<button id="txm" type="button" onclick="myFunction2()">扫描条形码</button>
+<br>
+<button type="button" onclick="myFunction3()">分享</button>
+<script>
+function myFunction1()
+{
+	setupWebViewJavascriptBridge(function(bridge)
+	{
+		 bridge.callHandler('pay',
+		 {
+            'actionName':'pay',
+		 	'money': '100'
+		 },
+		 function responseCallback(responseData) {
+		 	alert(responseData['data']['message']);
+		 	})
+	})
+}
+
+function myFunction2()
+{
+    setupWebViewJavascriptBridge(function(bridge)
+                                 {
+                                 bridge.callHandler('txm',
+                                                    {
+                                                    'actionName':'txm',
+                                                    'money': '1312312312'
+                                                    },
+                                                    function responseCallback(responseData) {
+                                                    console.log("JS received response:",  responseData)
+                                                    alert(responseData['data']['message']);
+                                                    })
+                                 })
+}
+
+function myFunction3()
+{
+    setupWebViewJavascriptBridge(function(bridge)
+                                 {
+                                 bridge.callHandler('share',
+                                                    {
+                                                    'actionName':'share'
+                                                    },
+                                                    function responseCallback(responseData) {
+                                                    console.log("JS received response:",  responseData)
+                                                    alert(responseData['data']['message']);
+                                                    })
+                                 })
+}
+        
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+        }
+            </script>
+</body>
+</html>

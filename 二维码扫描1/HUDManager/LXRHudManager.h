@@ -1,0 +1,36 @@
+//
+//  LXRHudManager.h
+//  LingXiRead
+//
+//  Created by quanwen on 16/4/17.
+//  Copyright © 2016年 iflytek. All rights reserved.
+//
+
+//#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+@class MBProgressHUD;
+
+@interface LXRHudManager : NSObject
+
+#pragma mark - 在window上展示转圈等待
+
++ (void)showHudLoadingOnWindow;
++ (void)hideHudLoadingOnWindow;
++ (MBProgressHUD *)getLoadingViewAfterShowOnWindow;
+
+#pragma mark - 在view上展示转圈等待
+
++ (void)showHudLoading:(UIView *)view;
++ (void)hideHudLoading:(UIView *)view;
++ (MBProgressHUD *)getLoadingViewAfterShow:(UIView *)view;
+
+#pragma mark - 展示toast
+
++ (void)showCenterHudText:(NSString*)title message:(NSString*)message showTime:(NSTimeInterval)showTime view:(UIView *)view;
++ (void)showCenterHudTextOnWindow:(NSString*)title message:(NSString*)message showTime:(NSTimeInterval)showTime;
+
++ (void)showCenterHudTextNoTitle:(NSString*)message showTime:(NSTimeInterval)showTime view:(UIView *)view;
++ (void)showCenterHudTextNoTitleOnWindow:(NSString*)message showTime:(NSTimeInterval)showTime;
+
+@end
